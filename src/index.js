@@ -18,7 +18,7 @@ const port = process.env.PORT;
 // common middlewares
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173","https://login-frontend-git-main-yogesh-palves-projects.vercel.app","https://login-frontend-yogesh-palves-projects.vercel.app"],
     credentials: true,
 }));
 app.use((0, morgan_1.default)("dev"));
