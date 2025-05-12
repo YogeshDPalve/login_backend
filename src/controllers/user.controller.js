@@ -77,7 +77,9 @@ const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             message: "Invalid Email or Password",
         });
     }
-    (0, generateToken_1.default)(user, res, `welcome back ${user.firstName}`);
+    if (checkPassword) {
+      (0, generateToken_1.default)(user, res, `welcome back ${user.firstName}`);
+    }
 });
 exports.userLogin = userLogin;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
