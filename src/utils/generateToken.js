@@ -17,7 +17,6 @@ const generateToken = (user, res, msg) => {
         .send({
         success: true,
         message: msg,
-        token,
         userInfo: {
             name: `${user.firstName} ${user.lastName}`,
             email: user.email,

@@ -34,16 +34,21 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
         let hashedPassword = yield bcryptjs_1.default.hash(password, 10);
-        const student = yield user_schema_1.userModel.create({
+        const user = yield user_schema_1.userModel.create({
             firstName,
             lastName,
             email,
             password: hashedPassword,
         });
+        if (!user) {
+            return res.status(400).send({
+                success: false,
+                message: "User not created",
+            });
+        }
         return res.status(200).send({
             success: true,
-            message: "User created Successfully",
-            student,
+            message: `${firstName} you registered successfully`,
         });
     }
     catch (error) {
@@ -108,7 +113,7 @@ const sendResetOtp = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const otp = (0, mailSender_1.generateOTP)();
     const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 mins from now
     const mailOptions = {
-        from: `"Your App Name" <${process.env.EMAIL_USER}>`,
+        from: `Login application  <${process.env.EMAIL_USER}>`,
         to: email,
         subject: "Reset Password - OTP Verification",
         html: `
@@ -183,7 +188,7 @@ const logoutUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .cookie("verifiedOtp", "", { maxAge: 0 })
             .send({
             success: true,
-            message: "User logged out successfully",
+            message: "Logged out successfully",
         });
     }
     catch (error) {
